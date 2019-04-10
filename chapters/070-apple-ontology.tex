@@ -1,0 +1,97 @@
+\chapter{Esempio applicativo: the apple ontology}
+\section*{L'ontologia utilizzata}
+Avendo chiarito il processo di ``traduzione'' con un esempio, è possibile procedere con la generazione di una rete più complessa, a partire da un'ontologia reale.
+
+La \textit{Apple Ontology} descrive i disordini e le malattie delle mele in relazione alle loro caratteristiche ed alla loro storia. Sono fattori influenti, per esempio, eventuali segni sulla mela (punture d'insetto, ammaccature, ...), il trasportatore e le modalità di conservazione.
+
+L'ontologia è molto ricca: è dotata di decine di entità e relazioni, il che consente di verificare con più confidenza l'effettivo funzionamento della procedura proposta e di produrre un sistema utilizzabile in situazioni reali.
+
+Va fatto notare che la Apple Ontology è in fase di sviluppo, parte di un progetto triennale: per questo motivo, certe entità non appaiono nella rete derivata con ONT2BN (ad esempio \textit{Insect\_Sting\_in\_Apple}). In quest'ottica, la tesi proposta e le considerazioni fatte saranno utili per trarre spunti riguardo a come modificare ed aggiornare l'ontologia per arrivare ad un modello più completo ed adatto ad esplorare relazioni causali. I pochi nodi non presenti nella rete generata tramite il processo inferenziale di ONT2BN, al momento, vengono aggiunti manualmente, ma a partire dalla prossima versione dell'ontologia saranno derivabili tramite il procedimento esposto.
+
+È bene ricordare, infine, che la rete proposta è una delle moltissime derivabili dalla Apple Ontology, e viene presentata come \textit{proof-of-concept} da migliorare (e, se necessario, stravolgere) nel corso dello sviluppo del progetto.
+
+\clearpage
+\section{Adattamento dell'ontologia e conversione tramite ONT2BN}
+L'ontologia, per come è stata strutturata, non è compatibile con la sintassi ONT2BN. 
+
+La prima fase consiste, quindi, nell'adattare le dipendenze rappresentate nell'ontologia tramite le già citate relazioni \texttt{dependsOn}. Questo richiede di identificare correttamente, ove possibile, il verso di queste dipendenze, e di integrare l'ontologia.
+
+Come primo passo, viene definita la relazione \texttt{dependsOn}:
+\begin{lstlisting}[language=xml]
+<owl:ObjectProperty rdf:about="http://www.w3.org/2002/07/owl#dependsOn">
+	<rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+</owl:ObjectProperty>
+\end{lstlisting}
+
+Successivamente, viene aggiunta la relazione alle varie classi, secondo la seguente forma (analoga a quella usata nel capitolo precedente):
+\begin{lstlisting}[language=xml]
+<rdfs:subClassOf>
+  <owl:Restriction>
+    <owl:onProperty rdf:resource="http://www.menthor.net/myontology#dependsOn"/>
+    <owl:someValuesFrom rdf:resource="http://www.menthor.net/myontology#Apple_Pathology_Dispositional_Factor"/>
+  </owl:Restriction>
+</rdfs:subClassOf>
+\end{lstlisting}
+
+A questo punto, è possibile caricare l'ontologia in ONT2BN e scaricare la rete \texttt{.net} corrispondente.
+
+La rete ottenuta da ONT2BN è visibile in Figura \ref{fig:ont2bnappleontology}.
+Come anticipato, alcuni elementi rilevanti per il processo inferenziale non sono riportati nella rete, e verranno aggiunti manualmente.
+
+\newpage
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=1.37\linewidth, angle=270]{../images/ont2bn_apple}
+	\caption{Rete generata con ONT2BN a partire dalla Apple Ontology}
+	\label{fig:ont2bnappleontology}
+\end{figure}
+
+
+\section{Elaborazione della rete in Genie}
+Avendo a disposizione la rete, questa si può importare in Genie per manipolarla.
+
+L'elaborazione della rete richiede riflessioni riguardo a quali siano i nodi da rimuovere o fondere (alcuni rappresentano entità astratte o superclassi), verifiche sull'orientamento degli archi e, inoltre, confronti con l'esperto di dominio per capire quali entità siano osservabili.
+
+Questo lavoro è estremamente importante e delicato, perché l'affidabilità della rete dipende fortemente dalle scelte prese in questa fase: la banale inversione della direzione di un arco può comportare malfunzionamenti nel sistema o portare a soluzioni incoerenti, così come un numero eccessivo o troppo esiguo di nodi rischia di condurre ad una rete inefficace.
+
+Come già anticipato, la rete proposta serve come \textit{proof-of-concept} e referenza per capire su che aspetti dell'ontologia lavorare maggiormente nel corso del progetto di ricerca di cui la Apple Ontology fa parte.
+
+
+\subsection{Manipolazione dei nodi}
+Il primo passo consiste nella rimozione di nodi che rappresentino entità astratte o superclassi, nella fusione di nodi che rappresentino coppie \texttt{<entità astratta, entità reale>} e nell'aggiunta dei nodi mancanti. 
+
+Vengono rimossi i nodi \texttt{Apple}, \texttt{Author}, \texttt{Picture\_Authorship}, \texttt{Apple\_Handling\_Activity} e \texttt{Apple\_Intrinsic\_Aspect}, poiché rappresentano entità astratte che aggiungono complessità alla rete senza avere valori definibili.
+\\
+\\
+Vengono fusi i nodi:
+\begin{enumerate}
+	\item <\texttt{Apple\_Transportation}, \texttt{Transporter}>
+	\item <\texttt{Apple\_Storage}, \texttt{Storage\_Facility}>
+	\item <\texttt{Apple\_Harvest}, \texttt{Apple\_Harvester}>
+	\item <\texttt{Apple\_Pathology}, \texttt{Pathogen\_Type}>
+	\item <\texttt{Apple\_State}, \texttt{Apple\_Pathological\_State}>
+\end{enumerate}
+in quanto rappresentanti coppie \texttt{<entità astratta, entità reale>}.
+
+Vengono aggiunti manualmente i nodi \texttt{Apple\_Stain}, \texttt{Insect\_Sting\_in\_Apple}, \\ \texttt{Hole\_in\_Apple} e \texttt{Pressure\_Mark\_in\_Apple}, che con l'ontologia disponibile al momento non riescono ad essere derivati tramite ONT2BN in quanto non connessi in maniera significativa al resto della rete, ma che hanno ovviamente un'importanza centrale nella diagnosi dei problemi di una mela. Questi nodi vengono posti tra \texttt{Apple\_Pathology} e \texttt{Pathogen\_Sign\_Prototype\_Assignment}. 
+
+
+\subsection{Manipolazione degli archi}
+Gli archi risultano già essere correttamente orientati, dal momento che la relazione \texttt{dependsOn} è stata aggiunta all'ontologia tenendo conto della direzione degli archi nel diagramma OntoUML della Apple Ontology.
+
+
+\subsection{Risultati e analisi}
+La rete risultante è riportata in Figura \ref{fig:genie_apple}
+\begin{figure}
+	\centering	
+	\includegraphics[width=1.4\linewidth, angle=90]{../images/genie_apple}
+	\caption{Rete generata dalla \textit{Apple Ontology}, elaborata in Genie}
+	\label{fig:genie_apple}
+\end{figure}
+
+Ancora numerosi problemi vanno affrontati. 
+Innanzitutto la rete, una volta rimossa la superclasse \texttt{Apple} (che partecipa in una relazione di appartenenza a \texttt{Apple\_Batch}), risulta composta da due reti separate: questo indica indipendenza tra le variabili delle due reti, e rende quindi poco utile una delle due ``sottoreti''. Questa problematica è stata fatta notare agli esperti di gestione della conoscenza che stanno lavorando sull'ontologia, che hanno concordato sulla necessità di porre maggiore enfasi sulle relazioni causali all'interno della stessa.
+
+La sottorete di destra (quella con \texttt{Apple\_Pathological\_State} in alto) è, al momento, la più interessante a fini diagnostici. Questo rende necessario un approfondito confronto con l'esperto di dominio per verificare l'orientamento degli archi e la struttura stessa della rete, che deve rappresentare correttamente le relazioni causali tra le varie entità.
+
+Un altro problema riguarda il come rappresentare determinate entità (trasportatore, regione, ...) con un numero: risulterebbe fondamentale un confronto con gli esperti di dominio per decidere cosa rappresentare con queste variabili, al momento difficilmente ``quantificabili''.

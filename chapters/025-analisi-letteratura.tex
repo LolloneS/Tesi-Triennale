@@ -1,0 +1,146 @@
+\chapter{Analisi della letteratura}
+
+\section{Introduzione}
+La letteratura sulla generazione di reti Bayesiane a partire da ontologie non è particolarmente ricca, ma risulta comunque un utile punto di partenza per analizzare diversi approcci; difatti, le pubblicazioni a disposizione sono spesso specializzate sui casi specifici d'interesse e raramente forniscono una fondata metodologia generale, applicabile al di fuori dell'ambito presentato.
+
+Un altro problema deriva dalla mancanza di significative analisi scientifico-statistiche: raramente si trovano spiegazioni approfondite delle scelte prese, e nella maggior parte dei casi la componente informatica è quasi completamente lasciata in disparte, non spiegando effettivamente come possa essere avvenuta la ``conversione''.
+
+Se da un lato una situazione simile risulta essere ostica -conosciamo tutti la frustrazione data dalla scarsità di documentazione-, l'assenza di soluzioni mature al problema risulta essere di stimolo per porsi domande alle quali provare a rispondere con ricerche future.
+
+In questo capitolo si provvederà ad un'analisi di alcune delle pubblicazioni studiate, focalizzando l'attenzione sugli aspetti più interessanti di queste pubblicazioni - sia in positivo, che in negativo.
+
+
+\section{Helsper e Van der Gaag, 2002}
+\subsection{Problema e soluzione}
+Questa pubblicazione del 2002\cite{helsper2002} tratta la generazione di un sistema per il supporto nella diagnosi del cancro esofageo.
+
+Le ricercatrici, avendo a disposizione una vecchia rete Bayesiana usata per la diagnosi, dividono il lavoro in due macro-sezioni:
+\begin{enumerate}
+	\item creazione di un'ontologia a partire dalla rete Bayesiana preesistente, con l'aiuto di esperti di dominio
+	\item creazione, a partire dall'ontologia del punto (1), di una nuova rete Bayesiana
+\end{enumerate}
+
+Ci si potrebbe chiedere come mai le autrici abbiano deciso di sviluppare un'ontologia anziché lavorare sulla rete esistente (o generarne direttamente una nuova). Nella pubblicazione viene espressa l'idea che le ontologie siano strumenti sui quali un esperto del dominio medico, estraneo all'informatica, sia più confidente a lavorare. Le ontologie consentono, inoltre, di definire molti vincoli che potrebbero essere persi lavorando direttamente sulla rete o creandone una senza possedere una \textit{knowledge-base} sottostante con la quale confrontarsi.
+
+\subsection{Generazione della rete Bayesiana}
+Innanzitutto, al fine di generare la rete Bayesiana, vengono selezionati i concetti più importanti dall'ontologia, che vengono rappresentati sotto forma di grafo. 
+
+Questa rappresentazione viene progressivamente ridotta nel numero di nodi ed archi e riadattata, accorpando delle variabili ed includendo solo quelle per le quali si possano ottenere ragionevolmente valori di probabilità. 
+
+Successivamente, si verifica se gli archi del grafo rappresentino correttamente le indipendenze condizionate tra variabili. È bene notare che una possibile violazione di questo ``vincolo'' non sia, di per sé, grave, come spiegherò nel prossimo paragrafo.
+
+
+\subsection{Analisi critica}
+La pubblicazione, purtroppo, manca di nozioni matematiche, statistiche o informatiche. Non sono presenti né formule, né pseudocodici a giustificare le scelte prese dalle autrici. Considerata l'età della pubblicazione, è comprensibile che la maggior parte del lavoro sia stata svolta grazie all'aiuto degli esperti. Ciononostante, non viene lasciato nulla di concreto in eredità ai lettori.
+
+Il procedimento proposto è logicamente solido: partendo da un'ontologia, si riesce a modellare chiaramente la conoscenza pregressa e quella acquisita tramite l'esperto. Mantenere le indipendenze condizionate a fronte della riduzione delle variabili proposta è un'operazione ardua, ma non rappresenta, di per sé, un problema, dal momento che il fine ultimo è avere una diagnosi esatta al di là della correttezza ``formale'' del modello.
+
+Rimangono molto apprezzabili una chiara spiegazione discorsiva delle decisioni e le rappresentazioni grafiche dei vari step della generazione della rete Bayesiana.
+
+
+\clearpage
+\section{Fenz, 2012}
+\subsection{Problema e soluzione}
+Il lavoro di Fenz inizia nel 2009\cite{fenz2009} e culmina nel 2012\cite{fenz2012} con una pubblicazione estremamente dettagliata e ricca. L'autore non solo desidera generare una rete Bayesiana a partire da un'ontologia (nel caso specifico, la Security Ontology\cite{securityontology}), ma vuole che la generazione avvenga nel modo più semplice e lineare possibile. Fenz pone forte enfasi sul passo in avanti che la sua pubblicazione rappresenta, puntualizzando che\cite{fenz2012}:
+\begin{itemize}
+	\item funziona con ontologie pre-esistenti, senza richiedere alcuna estensione per la generazione della rete Bayesiana
+	\item nel caso si desideri calcolare le tabelle di probabilità condizionata, le estensioni richieste non sono invasive, in quanto non vanno ad intaccare classi ed individui esistenti
+	\item i vincoli semantici definiti nell'ontologia vengono conservati nell'eventuale calcolo delle CPT
+	\item è supportata l'incorporazione della conoscenza di fatti pregressi
+	\item la generazione della rete Bayesiana è semi-automatica
+\end{itemize}
+
+\subsection{Generazione della rete Bayesiana}
+Come in Helsper e Van der Gaag\cite{helsper2002}, vengono selezionati manualmente i concetti di maggiore rilevanza, che saranno i nodi della rete Bayesiana; le relazioni contenute nell'ontologia vengono utilizzate come base per creare gli archi del grafo, che vengono successivamente orientati con l'aiuto dell'esperto di dominio.
+
+In aggiunta a questi due punti, Fenz propone di incorporare nell'ontologia eventuali assiomi e/o fatti noti da utilizzare come evidenze per il calcolo inferenziale nella rete Bayesiana. È inoltre possibile attribuire un \textit{peso} ai concetti: questo risulta molto utile nell'eventualità in cui si desideri calcolare le tabelle di probabilità condizionata.
+È bene notare che Fenz definisce a priori le funzioni per calcolare i pesi e le CPT ed assume che i nodi siano booleani. Inoltre, la Security Ontology è un'ontologia difficilmente applicabile in una situazione reale (come potremmo definire la motivazione di un malintenzionato o la vulnerabilità di un sistema con un numero?), quindi è impossibile verificare che la rete dia effettivamente il risultato esatto.
+
+
+\subsection{Analisi critica}
+I vantaggi di questo approccio sono numerosi: in particolare, grazie agli svariati strumenti disponibili è possibile lavorare su un'ontologia e mantenerla senza sforzi eccessivi; la generazione della rete è semi-automatica, nel senso che l'utente deve solamente selezionare i concetti importanti da utilizzare ed analizzare la direzione degli archi nel grafo; l'ontologia, nel peggiore dei casi, richiede estensioni non invasive.
+
+Purtroppo, per quanto la trattazione discorsiva sia sorprendentemente ricca, anche in questo caso le nozioni statistiche si riducono a poche formule definite dall'autore: ad esempio, l'attribuzione del peso di un nodo viene definita come semplice rapporto tra il valore assegnato al nodo e la somma dei valori totali.
+
+Nella pubblicazione, Fenz cita ed utilizza un plugin per il software Protégé\cite{protege}, chiamato BNTab\cite{bntab}, sviluppato dal suo team. Questo tool consentirebbe di caricare l'ontologia in Protégé, selezionare i concetti fondamentali e generare una rete Bayesiana. Nella pratica, questo plugin non è più supportato dal 2010 (è fermo alla release 1.1.3) e ad oggi è praticamente impossibile utilizzarlo a causa di svariate dipendenze irrisolvibili. 
+
+Questa pubblicazione getta una buona base dal punto di vista teorico e consente di porsi numerose domande: qual è la funzione più adatta a calcolare le CPT ed i pesi? Come bisognerebbe comportarsi nel caso i nodi non fossero booleani? Come ridurre ulteriormente l'intervento umano?
+
+
+\section{Messaoud et al., 2015}
+\subsection{Problema e soluzione}
+La pubblicazione di Messaoud\cite{messaoud2015} pone molta enfasi sul concetto di \textit{serendipity}. ``Il termine serendipità indica la fortuna di fare felici scoperte per puro caso e, anche, il trovare una cosa non cercata e imprevista mentre se ne stava cercando un'altra''\cite{serendipity_wiki}.
+
+L'obiettivo di Messaoud e coautori è la scoperta di relazioni causali tra le entità dell'ontologia tramite un processo esplorativo dettato dall'\textit{intuizione} che, tante volte, ha portato a rivoluzioni nella storia dell'umanità.
+In altre parole, data l'ontologia, l'autore desidera integrarvi e scoprire \textit{conoscenza causale} per la generazione di una rete Bayesiana.
+
+L'algoritmo proposto, SemCaDo\cite{messaoud2015}, è un estensione del pre-esistente MyCaDo. {SemCaDo} si appoggia sul calcolo della \textit{distanza semantica} per guidare la scoperta di nuove relazioni causali, con le quali \textit{evolvere} l'ontologia prima di reiterare il procedimento.
+
+
+\subsection{Generazione della rete Bayesiana}
+SemCaDo, disponibile sotto forma di pseudocodice e \textit{flow-chart} nella pubblicazione, è composto da più fasi.
+
+Innanzitutto vengono estratti tutti i vincoli dall'ontologia. 
+Questi vengono utilizzati insieme al dataset delle osservazioni disponibili per estrapolare un PDAG (un grafo aciclico parzialmente orientato). Il PDAG rappresenta la struttura grafica iniziale del procedimento, e purtroppo non viene specificato nel dettaglio come esso venga generato a partire da dataset e vincoli. È bene notare che l'obiettivo di SemCaDo è raggiungere un grafo completamente orientato nel migliore dei casi, un CPDAG (PDAG completo) quando alcuni archi non siano orientabili.
+
+Dopo aver ottenuto la struttura iniziale appena presentata, si procede ad estrarre tutti i nodi del grafo che siano estremi di archi non orientati, e per ognuno di questi vertici viene calcolata, secondo una formula definita da Messaoud, l'\textit{utilità} di effettuare un esperimento per orientare archi connessi a quel nodo.
+
+Successivamente, viene scelto il vertice con maggior valore di utilità, e si esegue l'esperimento. Questo approccio consente di ridurre al minimo il numero di esperimenti da effettuare, riducendo i costi sia sotto l'aspetto temporale, che economico.
+
+In seguito all'esperimento, si utilizzano i dati raccolti per orientare il maggior numero possibile di archi.
+Il procedimento può essere reiterato al fine di orientare ulteriori archi; inoltre, l'ontologia può essere \textit{evoluta} grazie ai risultati ottenuti, ovviamente dopo aver proposto le modifiche da apportare all'esperto ed aver ricevuto la sua approvazione.
+
+
+\subsection{Analisi critica}
+La pubblicazione di Messaoud rappresenta lo stato dell'arte riguardo la generazione di reti Bayesiane a partire da ontologie. 
+
+L'introduzione di una componente evolutiva causale risulta essere particolarmente apprezzabile in svariati domini di ricerca; la possibilità di arricchire l'ontologia con le nuove scoperte è assai utile per continuare ad accrescere la base di conoscenza; la scelta accurata degli esperimenti da effettuare consente di risparmiare tempo e denaro che, purtroppo, spesso scarseggiano nella ricerca.
+
+Nonostante la maturità e la completezza del lavoro svolto, rimangono delle questioni da risolvere o, quantomeno, chiarire.
+ 
+Innanzitutto, la pubblicazione premette un insieme di assunzioni non sempre verificate o verificabili, quali l'assunzione di gaussianità della distribuzione congiunta di probabilità e la sufficienza causale, ovvero la proprietà per cui tutte le cause comuni di variabili che appartengono ad un insieme $V$ sono nell’insieme $V$. 
+
+Inoltre, la conoscenza e la costante supervisione dell'esperto di dominio rimangono punti centrali della ``conversione'' in atto; in aggiunta, gli assiomi posti non possono essere vìolati, con il conseguente rischio di ottenere una rete ed una nuova ontologia ``degeneri'' a causa di una possibile assunzione errata iniziale; non sembra, infine, essere presente alcuna garanzia che il procedimento, se reiterato, converga ad una rete anziché degenerare.
+
+
+\section{Kalet et al., 2017}
+\subsection{Presentazione del lavoro e analisi delle problematiche}
+L'obiettivo di Kalet\cite{kalet2017} è sviluppare una soluzione che consenta di modellare il dominio della \textit{radioterapia oncologica applicata al tumore alla prostata} tramite un'ontologia, per poi derivare una rete Bayesiana attraverso \textit{ragionamento deduttivo}. Nella rete vengono, inoltre, uniti dei modelli preesistenti di reti per la diagnosi di tale tumore.
+
+L'autore pone enfasi su svariate problematiche non triviali che la generazione di un modello a partire da un'ontologia comporta. Ad esempio, riflette sulla difficoltà computazionale dei metodi di \textit{machine learning} per dedurre la topologia della rete (problema NP-hard\cite{kalet2017}) e li confronta con il metodo ``manuale'', che risulta comunque più dispendioso in termini temporali.
+
+Un altro problema che risalta è quello della \textit{torre di Babele}: modelli differenti possono utilizzare diverse terminologie per descrivere gli stessi concetti, e questo può risultare in inconsistenze e mancanza di compatibilità. Inoltre, anche ammettendo di poter disambiguare dei termini, come possiamo essere certi che la nuova interpretazione sia corretta? 
+
+Ulteriori difficoltà emergono quando si tenta di dedurre la topologia della rete direttamente dai dati. Un esempio lampante si trova in Stojadinovic et al.\cite{stojadinovic2013clinical}: i ricercatori hanno prodotto un insieme di reti per prevedere le possibilità di sopravvivenza in casi di tumore del colon applicando algoritmi di machine learning su un grosso dataset, suddiviso in vari sottoinsiemi a seconda dei mesi trascorsi dalle cure.
+Le topologie ottenute presentano, in certi casi, archi orientati in direzioni opposte tra gli stessi due nodi, a conferma della difficoltà dovuta alla generazione di una rete basandosi unicamente su dati.
+
+Infine, il dominio medico presenta altre problematiche ``interne'': non esiste quasi mai conoscenza certa e spesso vi sono varie teorie in conflitto tra loro.
+
+
+\subsection{Processo risolutivo}
+\subsubsection{Costruzione dell'ontologia}
+Come primo passo, Kalet costruisce un'ontologia di dominio in cui le dipendenze definiscono dei \textit{livelli}. Questa ontologia contiene numerose classi e sottoclassi e stabilisce dipendenze tra i concetti del dominio. Degli \textit{stati} vengono definiti al fine di derivare le CPT.
+
+Dal momento che potrebbe anche essere utile attribuire diverso peso a certe dipendenze, viene data la possibilità di definirlo nel nome delle relazioni: viene quindi fornito un insieme di cinque sottoproprietà degli oggetti, \texttt{dependsOnX}, con $1 \le$ \texttt{X} $\le 4$ (oppure \texttt{X} omessa), nelle quali il valore numerico corrisponde al peso della dipendenza.
+
+
+\subsubsection{Estrazione della rete dall'ontologia}
+L'estrazione della rete dall'ontologia richiede due punti fondamentali: estrarre il grafo dall'ontologia e modificare la rete in modo da rimuovere nodi non di interesse\cite{kalet2017}. Per soddisfare tutte le richieste del caso viene scritto un software nel linguaggio R, chiamato ONT2BN.
+
+Per effettuare l'estrazione di tutti i concetti e delle relazioni di tipo \texttt{dependsOn}, viene utilizzata una query SPARQL tramite dei plugin del linguaggio R: \texttt{rrdf} e \texttt{RHugin}. Vengono inoltre rimossi nodi non desiderati tramite l'eliminazione di eventuali nodi intermedi, con un processo che mantiene le dipendenze tra i nodi estremi in una struttura a livelli (come quella definita precedentemente nell'ontologia).
+
+L'autore combina, con successo, due ontologie preesistenti, tramite un'attenta disambiguazione ed utilizzando tutti i termini in comune per ``legare'' le due ontologie in una unica, nuova e più aggiornata.
+
+Notiamo che nulla, nell'ontologia, specifica relazioni di dipendenza probabilistica: di conseguenza, Kalet applica \textit{ragionamento deduttivo} sull'ontologia stessa. La causalità viene banalmente definita come l'``inversa'' delle relazioni \texttt{dependsOn}.
+
+
+\subsection{Il software ONT2BN}
+ONT2BN si appoggia sul linguaggio R ed utilizza i seguenti pacchetti\cite{ont2bn_2015}: \texttt{shiny}, \texttt{rrdf}, \texttt{RHugin}, \texttt{shinysky},	\texttt{shinyBS}, \texttt{shinyIncubator}.
+
+Il tool è fornito sotto forma di \textit{webapp} e presenta un'interfaccia grafica molto semplice, che consente di importare ontologie e di generare un modello di rete Bayesiana a partire da esse. Varie opzioni sono disponibili, per esempio la scelta della ``profondità'' delle relazioni da scoprire e la possibilità di invertire l'orientamento degli archi.
+
+Una volta determinato il modello d'interesse, è possibile scaricarne una rappresentazione grafica o un file in formato per Hugin\cite{hugin}.
+
+
+
+

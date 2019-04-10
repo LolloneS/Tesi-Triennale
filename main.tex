@@ -1,0 +1,132 @@
+\documentclass[a4paper,12pt,openright,twoside]{book}
+\usepackage[a4paper,margin=2in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage[square,numbers,super]{natbib}
+\usepackage[italian]{babel}
+% le immagini vanno tutte in images/
+\graphicspath{ {images/} }
+\usepackage{fullpage}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphics}
+\usepackage{amsmath}
+\usepackage{amstext}
+\usepackage{lscape}
+\usepackage[nottoc]{tocbibind}
+\usepackage{engrec}
+\usepackage{microtype}
+\usepackage{enumerate}
+\usepackage[hidelinks]{hyperref}
+\usepackage{marginnote}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+
+
+% un po' di estetica...
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headsep}{0.35in}
+\let\MakeUppercase\relax
+\renewcommand\sectionmark[1]{}
+
+% blocchi di codice
+\usepackage{listings}
+\lstset{
+	breaklines=true, 
+	frame=single, 
+	numbers=left,
+	tabsize=2,
+	basicstyle=\scriptsize,
+	showstringspaces=false
+}
+
+\frenchspacing
+\thispagestyle{plain}
+
+
+\begin{document}
+\frontmatter
+%%% Grazie mille a Luca Chiodini per questo frontespizio
+%%% https://github.com/lucach/frontespizio-unimib
+\begin{titlepage}
+	
+	\noindent
+	\begin{minipage}[t]{0.18\textwidth}
+		\vspace{-4.5mm}{\includegraphics[scale=0.20]{images/logo_unimib.png}}
+	\end{minipage}
+	\begin{minipage}[t]{0.82\textwidth}
+		{
+			\setstretch{1.42}{\textsc{Università degli Studi di Milano - Bicocca} } \\
+			\textbf{Scuola di Scienze} \\
+			\textbf{Dipartimento di Informatica, Sistemistica e Comunicazione} \\
+			\textbf{Corso di Laurea in Informatica} \\
+			\par
+		}
+	\end{minipage}
+	
+	\vspace{40mm}
+	
+	\begin{center}
+		{\LARGE{
+				\setstretch{1.2}
+				\textbf{Generazione di reti Bayesiane \\ a partire da ontologie}
+				\par
+		}}
+	\end{center}
+	
+	\vspace{50mm}
+	
+	\noindent
+	{\large \textbf{Relatore:} Prof. Stella Fabio } \\
+	
+	\noindent
+	{\large \textbf{Co-relatore:} Dott. Sottocornola Gabriele}
+	
+	\vspace{15mm}
+	
+	\begin{flushright}
+		{\large \textbf{Relazione della prova finale di:}} \\
+		\large{Lorenzo Soligo} \\
+		\large{Matricola 806954} 
+	\end{flushright}
+	
+	\vspace{20mm}
+	\begin{center}
+		{\large{\bf Anno Accademico 2017-2018}}
+	\end{center}
+	
+	\restoregeometry
+	
+\end{titlepage}
+
+%\input frontespizio
+
+%\maketitle
+
+
+\input chapters/001-dedica
+\input chapters/002-prefazione
+\input chapters/003-abstract
+
+
+
+\cleardoublepage
+
+\tableofcontents
+
+\input capitoli
+
+\backmatter
+
+\bibliographystyle{unsrtnat}
+\bibliography{bibliografia}
+
+\end{document}
+
+
+
+

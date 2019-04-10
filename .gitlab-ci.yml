@@ -1,0 +1,15 @@
+image: blang/latex:ctanfull
+
+stages:
+  - build
+
+build:
+  stage: build
+  script: 
+    - xelatex main 
+    - bibtex main
+    - xelatex main
+    - xelatex main
+  artifacts:
+    paths:
+    - "*.pdf"

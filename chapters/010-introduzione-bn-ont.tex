@@ -1,0 +1,151 @@
+\mainmatter
+
+\chapter{Introduzione}
+
+\section{Informazione e semantica}
+Negli ultimi tempi, sempre maggiore importanza è stata attribuita agli aspetti \textit{semantici} dell'informazione: se, fino a qualche anno fa, ci si preoccupava principalmente di organizzarla e presentarla, oggi una delle più grandi sfide consiste nel rendere l'informazione interpretabile ed utilizzabile dalle macchine, oltre che dagli umani. 
+
+In questo ramo della ricerca si inserisce il \textit{semantic web}\cite{semanticweb}, termine coniato da Tim Berners-Lee che sta ad indicare la trasformazione dell'attuale World Wide Web in una nuova rete nella quale le risorse siano associate ad informazioni di varia natura ed a metadati, al fine di descriverne le proprietà tramite standard adatti all'elaborazione da parte di macchine. Come dimostrano gli investimenti di Google nel Knowledge Graph\cite{knowledgegraph}, questi temi sono estremamente attuali ed aprono le porte a illimitate aree di ricerca. Il Google Knowledge Graph è una \textit{base di conoscenza}, utilizzata da Google nei propri servizi, che si propone di aiutare a produrre un meccanismo di ricerca più preciso ed interessante per l'utente, tramite l'analisi di relazioni semantiche tra le risorse del Web e l'interconnessione di informazioni di varia provenienza.
+
+Le ontologie -che verranno descritte a breve- sono una delle più diffuse tecnologie per la rappresentazione semantica delle informazioni nel Web, e per questo motivo risultano essere di profondo interesse per interfacciarsi con un settore così recente ed articolato. 
+
+Riassumendo, la ricerca sulla semantica dell'informazione risulta essere la naturale conseguenza di quella che è, ormai, una necessità: far lavorare e \textit{pensare} le macchine al posto nostro. Se vogliamo che un'\textit{intelligenza artificiale} possa lavorare con dei dati, deve saperne il significato, almeno in linea generale.
+
+\clearpage
+
+\section{Le ontologie}
+\subsection{Origine del termine e due definizioni}
+Il termine \textit{ontologia} nasce all'inizio del XVII secolo in ambito filosofico: si tratta della \textit{scienza dell'essere in quanto essere}\cite{treccani_ontologia}. Rifacendosi a questa definizione, si può intuire come questo vocabolo sia fortemente legato alla descrizione e all'analisi profonda della realtà e di concetti astratti. Si può quindi capire come mai, in ambito informatico, il termine \textit{ontologia} venga utilizzato nell'ambito della descrizione di entità e domini.
+
+Intuitivamente, un'ontologia è definibile come una \textit{descrizione formale e dettagliata di un dominio di interesse}. Questa descrizione include le entità del dominio, le loro proprietà, le relazioni tra esse, eventuali conoscenze pregresse, ed altro. Tutto ciò viene utilizzato per \textit{creare un modello di conoscenza formale}\cite{fenz2012}.
+
+Un'altra definizione, altrettanto valida, afferma che ``[...] un'ontologia definisce un insieme di \textit{primitive di rappresentazione} con le quali modellare un dominio di conoscenza o un discorso. [...] In informatica, `ontologia' è un termine tecnico che denota un artefatto disegnato per un obiettivo, che è abilitare la modellazione della conoscenza riguardante un qualche dominio, reale o immaginario''\cite{tomgruber_ontology}.
+
+
+\subsection{Utilità e codifica}
+L'utilità delle ontologie appare chiara, date le definizioni sopra riportate: sono lo strumento ideale per modellare la conoscenza in determinati domini di interesse. La possibilità di definire classi, relazioni, proprietà, vincoli ed altro (e relative istanze) rende le ontologie uno strumento potente e versatile. Vedremo in seguito alcuni esempi pratici di utilizzo, ad esempio nella descrizione di tumori in ambito medico.
+
+A livello puramente implementativo, le ontologie possono essere espresse in vari formati: lo standard attualmente più diffuso è OWL (\textit{Web Ontology Language}), un'estensione di RDF (\textit{Resource Description Framework})\cite{rdf}. OWL è un linguaggio semantico pensato per rappresentare conoscenza ricca e complessa riguardo ad oggetti, insiemi che li contengono e relazioni tra essi\cite{w3c_owl}.
+
+
+\subsubsection{UFO e OntoUML}
+UFO (\textit{Unified Foundational Ontology}) è il nome dato ad un'ontologia fondativa che ha il fine di gettare le basi per la modellazione concettuale\cite{guizzardi2015}. UFO rientra in un progetto di ricerca che desidera sviluppare teorie, metodologie e strumenti per far avanzare la modellazione concettuale in quanto disciplina solida teoricamente ed, al tempo stesso, dalle importanti applicazioni pratiche.
+
+A proposito di applicazioni pratiche, quella più di successo è sicuramente OntoUML\cite{guizzardi2015}, una versione pattern-based e ontologicamente fondata di UML\cite{uml} (\textit{Unified Modeling Language}) definita come ``un linguaggio per la modellazione concettuale strutturale''. {OntoUML} è stato utilizzato in svariate ricerche, nell'industria ed addirittura in istituzioni governative.\cite{guizzardi2015}
+
+
+\section{Knowledge-based expert systems}
+\subsection{Introduzione e definizione}
+Possiamo affermare che una persona sia \textit{esperta} in un determinato dominio se questa possiede una buona conoscenza teorica di tale dominio e se ha acquisito, con il tempo, delle euristiche che l'esperienza pratica dimostra essere efficaci.
+
+I \textit{knowledge-based expert systems} possono essere costruiti acquisendo conoscenza da un esperto del dominio di interesse e trasformandola in modo che sia comprensibile ed utilizzabile da una macchina. Il programma ``esperto'' applica procedimento deduttivo basandosi su un insieme di regole e sceglie tra diverse alternative basandosi su euristiche anziché effettuare \textit{brute-force}.\cite{aniba2008knowledge}
+
+Riassumendo, possiamo definire un \textit{expert system} come ``un software che simula comportamenti e giudizi di esperti in un particolare dominio ed utilizza la loro conoscenza per fornire agli utenti analisi del problema''\cite{aniba2008knowledge}.
+
+Come è stato spiegato, le ontologie nascono in ambito di gestione della conoscenza, e si addicono quindi per loro natura ad essere utilizzate come \textit{knowledge base} per degli Expert Systems.
+
+
+\subsection{Knowledge-based recommender systems}
+I sistemi di raccomandazione con \textit{knowledge base} sottostante sono uno dei più lampanti esempi di utilizzo delle ontologie. ``I \textit{recommender system} (RS) sono strumenti e tecniche software che forniscono consigli su oggetti che potrebbero essere utili per l'utente''\cite{recsyshandbook}. 
+
+Vi sono vari approcci per la creazione di sistemi di raccomandazione; quello che reputo interessante ai fini di questa tesi è il metodo con knowledge-base sottostante. Questo approccio utilizza conoscenza esplicita -anche fornita dall'utente stesso- riguardante i requisiti dell'utente ed una dettagliata conoscenza dei prodotti per \textit{ragionare} e trovare intelligentemente cosa consigliare all'utente. ``Le persone trovano difficile spiegare esattamente cosa desiderano, ma sono brave a riconoscerlo quando lo vedono''\cite{ontologyhandbook}.
+
+In una tale configurazione, la possibilità di sfruttare le ontologie per descrivere dettagliatamente i prodotti, comprese le loro proprietà meno ``materiali'' e più astratte, diventa un vantaggio non trascurabile: le ontologie aiutano ad estendere i sistemi di raccomandazione, completando ed integrandosi con i tradizionali algoritmi di Machine Learning. Ad oggi, le ontologie sono comunemente usate nei RS insieme ai suddetti algoritmi, ad analisi statistiche di correlazione, alla profilazione degli utenti e ad euristiche specifiche del dominio di interesse\cite{ontologyhandbook}.
+
+%%%% mi sembra un po' fuori luogo e buttata là, magari può fare comodo più avanti
+%I RS commerciali sono dotati di semplici ontologie dei prodotti che utilizzano tramite euristiche basate su relazioni semantiche (\textit{heuristic-based recommendation}), oppure sfruttano community di utenti che votano i contenuti per applicare \textit{collaborative filtering}. Un altro approccio consiste nello sfruttare la somiglianza tra prodotti (\textit{content-based filtering}).
+
+
+\subsection{Knowledge-based decision support systems}
+Un \textit{decision support system} (DSS) è un sistema interattivo che punta ad aiutare gli utenti ad identificare, risolvere o prendere decisioni riguardo a problemi.
+Il termine, abbastanza generico, sta ad indicare una qualsiasi applicazione che migliori le abilità (di una persona o di un ente) di prendere decisioni\cite{dss}.
+
+È possibile individuare varie ``categorie'' di DSS: ai fini di questa tesi, sono di particolare interesse i \textit{knowledge-based decision support system} (KBDSS). 
+
+Il primo ostacolo che si incontra studiando i KBDSS sta nel rappresentare la conoscenza. Le due alternative principali sono le ontologie ed il \textit{clustering}\cite{liu2014knowledge}. Il clustering mira a dividere automaticamente la conoscenza in classi/cluster che racchiudono regole simili. Le ontologie, invece, rappresentano la conoscenza in modo \textit{consensuale}, vale a dire che la rappresentazione del dominio deve essere accettata e (se possibile) validata da un gruppo di esperti. Nel capitolo riguardante la \textit{apple ontology}, verrà proposto un modello di rete Bayesiana (cfr. sezione successiva), generata a partire da un'ontologia, che funzioni da DSS per la determinazione di disordini e disturbi post-raccolta delle mele.
+
+
+\section{Le reti Bayesiane}
+\subsection{Origine}
+Le reti Bayesiane prendono il loro nome da Thomas Bayes, matematico britannico tuttora rinomato per il teorema sulle probabilità che prende il suo nome. 
+
+Il termine \textit{rete Bayesiana} fu coniato da Judea Pearl nel 1985. Egli, forse involontariamente, diede il via ad una piccola rivoluzione, spostando le attenzioni principali nel mondo dell'intelligenza artificiale dalla logica alla probabilità.\cite{stella2018}
+
+
+\subsection{Definizione}
+Una rete Bayesiana (Bayesian Network, \textit{BN}) è un modello grafico probabilistico identificabile da due descrizioni complementari tra loro\cite{messaoud2012}:
+\begin{itemize}
+\item una descrizione \textit{qualitativa}, che consiste in un DAG (\textit{Directed Acyclic Graph}), rappresentante le indipendenze/dipendenze (condizionate) tra le variabili, che possono essere continue o discrete\cite{stella2009}. È bene notare che, come detto, il grafo deve essere aciclico: una variabile non può influenzare se stessa.
+\item una descrizione \textit{quantitativa} di queste dipendenze tramite tabelle di probabilità condizionata (\textit{Conditional Probability Tables}, CPTs), che indicano la probabilità che un evento si verifichi dato lo \textit{stato} dei suoi genitori.
+
+Possiamo definire la probabilità che si verifichino $X_1=x_1, X_2 = x_2, ..., X_n = x_n$ tramite la formula di \textit{fattorizzazione della distribuzione congiunta di probabilità}\cite{stella2009}
+
+\begin{equation}
+P(x_1, x_2, ..., x_n) = \Pi_{i=1}^{n} P(x_i \, | \, parents(X_i))
+\end{equation}
+
+Definiamo un nodo $X$ \textit{genitore} (in inglese \textit{parent}) o \textit{padre} di un nodo \textit{Y} se esiste un arco uscente da $X$ ed entrante in $Y$; inoltre, diciamo che $Y$ è \textit{figlio} di $X$. Di conseguenza, nella formula, $parents(X_i)$ sta ad indicare tutti i nodi dai quali esce un arco che entra nel nodo $X_i$.
+		
+È possibile notare come la formula appena presentata sia particolarmente simile alla \textit{chain rule} definita dal teorema di Bayes: 
+\begin{equation}
+	P(x_1, x_2, ..., x_n) = \Pi_{i=1}^{n} P(x_i \, | \, x_{i-1}, ..., x_1)
+\end{equation}
+Effettivamente, se $Parents(X_i) \subseteq \{X_1, ..., X_{i-1}\}$, le due definizioni sono equivalenti.\cite{stella2009}
+\end{itemize}
+
+\subsection{Semantica}
+Vengono proposte due chiavi di lettura per capire la semantica delle reti Bayesiane: possiamo affermare, equivalentemente, che la rete rappresenta una distribuzione congiunta di probabilità, oppure che codifica un insieme di relazioni di indipendenza condizionale.\cite{stella2009}
+
+Queste due interpretazioni, sebbene equivalenti, risultano adatte ad analizzare due aspetti diversi della rete: la distribuzione congiunta di probabilità serve a definire l'aspetto quantitativo della rete e, di conseguenza, del problema rappresentato; le relazioni di indipendenza condizionale sono, invece, fondamentali per definire la struttura del grafo.
+
+
+%%% utile o divago troppo? non ha molto senso buttarla lì in 3 righe...
+%\subsection{Inferenze}
+%Fornita dell'\textit{evidenza}, che possiamo definire come \textit{certezza sullo stato di alcune variabili}, si desidera calcolare la \textit{probabilità a posteriori} ed il MAP (\textit{massimo a posteriori}) di alcune variabili.
+%
+%\textbf{DA COMPLETARE}
+
+
+\subsection{Utilità ed esempi di utilizzo}
+Come vedremo, l'ambito di utilizzo delle reti Bayesiane è estremamente vasto, e spazia dal supporto nella diagnosi di tumori\cite{kalet2017}, al ranking delle abilità di giocatori\cite{msr_trueskill}, a codici per la \textit{forward-error correction}\cite{turbocode}.
+
+\subsubsection{Un esempio: Asia smoking}
+Questa rete, sviluppata nel 1988\cite{lauritzen1988local} e qui presentata tramite le rappresentazioni grafiche di [Scutari, 2016]\cite{asiasmoking}, è un ottimo esempio di sistema (ovviamente semplificato) che si potrebbe utilizzare a fini diagnostici.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{../images/asia_smoking}
+	\caption[Asia smoking Bayesian network]{Asia smoking Bayesian network}
+	\label{fig:asiasmoking}
+\end{figure}
+
+Come spiegato in precedenza, ad ogni nodo di una rete Bayesiana viene associata una CPT contenente i valori delle probabilità condizionate, dato lo stato dei genitori. Per esempio, in questo caso, bronchite e cancro ai polmoni sono più probabili nel caso il paziente sia un fumatore (fig. \ref{fig:asiasmokingcpts}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.92\linewidth]{../images/asia_smoking_cpts}
+	\caption[CPTs di alcuni nodi della Asia smoking Bayesian network]{CPTs di alcuni nodi della Asia smoking Bayesian network}
+	\label{fig:asiasmokingcpts}
+\end{figure}
+
+
+Utilizzando Genie\cite{genie}, un software che verrà presentato a breve, è possibile effettuare inferenze sulla rete, date delle evidenze. Nella figura \ref{fig:asiasmokinggenie} è possibile vedere i valori di probabilità per i vari nodi, dati in input il fatto che il paziente sia un fumatore (\textit{Smoking: Smoker}), che abbia la bronchite (\textit{Bronchitis: Present}) e che il risultato dell'esame ai raggi X sia anomalo (\textit{X-Ray Result : Abnormal}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{../images/asia_smoking_genie}
+	\caption[Esito dell'inferenza, date delle evidenze]{Esito dell'inferenza, date delle evidenze}
+	\label{fig:asiasmokinggenie}
+\end{figure}
+
+
+
+
+\section{Da ontologia a rete Bayesiana: le sfide principali}
+Nel prossimo capitolo verrà presentata la letteratura a disposizione sulla ``conversione'' da ontologia a rete Bayesiana. Vengono di seguito presentate le principali sfide da risolvere che emergeranno in tale analisi.
+
+La principale sfida riguarda l'\textit{elicitazione} della conoscenza tramite l'aiuto di esperti, che appare sempre essere imprescindibile. In assenza di un esperto del dominio di interesse, effettivamente, diventa estremamente difficile (e rischioso) formulare modelli consistenti e realistici. L'\textit{esperto} è colui che guida nella stesura dell'ontologia, assicurandosi che le entità e le relazioni vengano correttamente modellate. Egli si preoccupa anche di chiarire le ambiguità -eventualmente definendo un \textit{glossario}-, ed è fondamentale nella scelta di quali elementi del dominio rappresentare. 
+È intuitivo ritenere che un modello troppo articolato sia difficile da gestire, così come uno eccessivamente semplice non riesca a cogliere con sufficiente rilievo le caratteristiche più profonde del dominio stesso. Per queste motivazioni, la figura dell'esperto rimarrà a lungo fondamentale in questo ambito della ricerca.
+
+Un'altra sfida sulla quale concentrarsi sta nel trovare il modo più adeguato a scoprire dipendenze causali tra variabili, alla luce della possibilità di compiere esperimenti su di esse. A questo si collega anche la necessità di studiare come accettare l'eventuale violazione di assiomi definiti nelle ontologie, se questi si rivelassero limitanti o non del tutto veritieri.
+
+In generale, lo ``stato dei lavori'' lascia spazio a numerose domande di ricerca e svariati approcci possibili, ponendo le basi per corposi sviluppi futuri.
